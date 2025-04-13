@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SSVT - Smart Study</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+  
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+    }
+  
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: linear-gradient(to right, #007bff, #00c6ff);
+      color: white;
+      position: relative;
+      z-index: 10;
+    }
+  
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+    }
+  
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      font-size: 28px;
+      z-index: 11;
+      color: white;
+    }
+  
+    nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+  
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      position: relative;
+    }
+  
+    nav ul li a:hover {
+      color: #ffe600;
+    }
+  
+    .login-btn {
+      cursor: pointer;
+      padding: 8px 16px;
+      background-color: white;
+      color: #007bff;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+  
+    .login-btn:hover {
+      background-color: #ffe600;
+      color: black;
+    }
+  
+    .login-mobile {
+      display: none;
+    }
+  
+    .dropdown {
+      position: relative;
+    }
+  
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: white;
+      top: 100%;
+      left: 0;
+      list-style: none;
+      padding: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+  
+    .dropdown:hover .dropdown-menu {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+  
+    .dropdown-menu li {
+      padding: 5px 0;
+    }
+  
+    .dropdown-menu li a {
+      color: black;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: block;
+    }
+  
+    .dropdown-menu li a:hover {
+      background-color: #f1f1f1;
+    }
+  
+    .profile-pic {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+  
+    .login-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.4s ease;
+    }
+  
+    .login-modal .login-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 300px;
+      text-align: center;
+      animation: slideDown 0.4s ease;
+    }
+  
+    .login-box input {
+      width: 90%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+  
+    .login-box button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  
+    .login-box button:hover {
+      background-color: #0056b3;
+    }
+  
+    .hero {
+      padding: 100px 20px;
+      text-align: center;
+      background: linear-gradient(to right, #e6f0ff, #d1ecff);
+    }
+  
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #003366;
+    }
+  
+    .browse-btn {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+    }
+  
+    .browse-btn:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+  
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+  
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #007bff;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      }
+  
+      nav ul.active {
+        display: flex;
+      }
+  
+      nav ul li a {
+        color: white;
+        padding: 10px 20px;
+      }
+  
+      .login-btn {
+        display: none;
+      }
+  
+      .login-mobile {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 10px;
+        color: white;
+      }
+  
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        padding-left: 20px;
+      }
+    }
+  
+    @keyframes slideDown {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+  </style>
+  
+</head>
+<body>
+  <header>
+    <div class="logo">📘 Edumark</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <nav>
+      <ul id="navList">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="G:\tution website\frontend\homepage\frontend\hub web\index.html">NOTES</a></li>
+
+        <li class="dropdown">
+          <a href="#">EXAM-PAPER ▼</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://user247a.github.io/class-vi-exam-paper/viewer.html">CLASS VI</a></li>
+            <li><a href="https://user247a.github.io/class-vii-exam-paper/viewer.html">CLASS VII</a></li>
+            <li><a href="https://user247a.github.io/class-viii-exam-paper/viewer.html">CLASS VIII</a></li>
+            <li><a href="https://user247a.github.io/class-ix-exam-paper/viewer.html">CLASS IX</a></li>
+            <li><a href="https://user247a.github.io/class-x-exam-paper/viewer.html">CLASS X</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#">TEST ▼</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Class 6</a></li>
+            <li><a href="#">Class 7</a></li>
+            <li><a href="#">Class 8</a></li>
+            <li><a href="#">Class 9</a></li>
+            <li><a href="#">Class 10</a></li>
+          </ul>
+        </li>
+
+        <li class="login-mobile" onclick="toggleLogin()">Log In</li>
+      </ul>
+    </nav>
+    <div class="login-btn" onclick="toggleLogin()">Log In</div>
+  </header>
+
+  <section class="hero">
+    <div class="content">
+      <h1>Learn Your Favorite Course From SSVT</h1>
+      <button class="browse-btn" onclick="openMap()">Get Direction</button>
+    </div>
+  </section>
+
+  <div class="login-modal" id="loginModal">
+    <div class="login-box">
+      <h2 id="formTitle">Login</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="submitForm()">Login</button>
+      <p id="loginMessage"></p>
+      <p class="toggle-form">
+        <span id="toggleText">Don't have an account?</span>
+        <a href="#" onclick="toggleFormMode()" id="toggleLink">Register here</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    let isLoginMode = true;
+
+    function toggleLogin() {
+      const modal = document.getElementById("loginModal");
+      modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+      modal.style.justifyContent = "center";
+      modal.style.alignItems = "center";
+    }
+
+    function toggleFormMode() {
+      isLoginMode = !isLoginMode;
+      document.getElementById("formTitle").textContent = isLoginMode ? "Login" : "Register";
+      document.querySelector(".login-box button").textContent = isLoginMode ? "Login" : "Register";
+      document.getElementById("toggleText").textContent = isLoginMode ? "Don't have an account?" : "Already have an account?";
+      document.getElementById("toggleLink").textContent = isLoginMode ? "Register here" : "Login here";
+      document.getElementById("loginMessage").textContent = "";
+    }
+
+    async function submitForm() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("loginMessage");
+      const endpoint = isLoginMode ? "/login" : "/register";
+
+      try {
+        const res = await fetch(`http://localhost:5000${endpoint}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+
+        const data = await res.json();
+        message.textContent = data.message;
+        message.style.color = res.ok ? "green" : "red";
+
+        if (isLoginMode && res.ok) {
+          alert("Welcome " + username);
+          toggleLogin();
+          const loginBtn = document.querySelector(".login-btn");
+          loginBtn.innerHTML = `<img src="profile.png" alt="Profile" class="profile-pic">`;
+          loginBtn.style.background = "transparent";
+        }
+      } catch (err) {
+        message.textContent = "Something went wrong!";
+        message.style.color = "red";
+      }
+    }
+
+    function openMap() {
+      const latitude = 19.468190394468106;
+      const longitude = 82.80674060034208;
+      const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
+      window.open(url, "_blank");
+    }
+
+    function toggleMenu() {
+      const navList = document.getElementById("navList");
+      navList.classList.toggle("active");
+    }
+  </script>
+</body>
+</html>
