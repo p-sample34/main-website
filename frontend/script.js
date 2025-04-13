@@ -23,7 +23,7 @@ async function submitForm() {
     const endpoint = isLoginMode ? "/login" : "/register";
 
     try {
-        const res = await fetch(`http://localhost:5000${endpoint}`, {
+        const res = await fetch(`https://main-website-uftu.onrender.com${endpoint}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
