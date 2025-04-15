@@ -38,7 +38,7 @@
       const subject = document.getElementById("subject").value;
       const link = document.getElementById("link").value;
 
-      const res = await fetch("https://your-backend-url.onrender.com/api/links", {
+      const res = await fetch("https://main-website-1-e7bk.onrender.com/api/links", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ class: subjectClass, subject, link })
