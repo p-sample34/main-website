@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Class 6–10 Notes Hub</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background-color: #f9f9f9; color: #333; text-align: center; }
+    header { background-color: #4CAF50; color: white; padding: 20px 0; font-size: 28px; font-weight: bold; }
+    p.intro { margin: 20px; font-size: 18px; }
+    h2 { margin: 30px 0 15px; font-size: 22px; color: #2e7d32; }
+    .button-group { display: flex; flex-direction: column; align-items: center; margin: 10px auto 40px; width: 90%; max-width: 600px; }
+    .button-group a { display: block; width: 100%; text-decoration: none; color: white; background-color: #4CAF50; padding: 15px; margin: 8px 0; border-radius: 6px; font-size: 18px; transition: background-color 0.3s; }
+    .button-group a:hover { background-color: #388e3c; }
+    footer { background-color: #222; color: #fff; padding: 15px 0; }
+  </style>
+</head>
+<body>
+
+<header>Class 6–10 Notes Hub</header>
+<p class="intro">Browse notes by class and subject. Tap a button to open notes in a new tab.</p>
+
+<!-- CLASS SECTIONS -->
+<script>
+  const subjectsByClass = {
+    "6": ["Science", "Social Science", "English", "Hindi", "Odia"],
+    "7": ["Science", "Social Science", "English", "Hindi", "Odia"],
+    "8": ["Science", "Social Science", "English", "Hindi", "Odia"],
+    "9": ["Physics", "Chemistry", "Biology", "Economic", "Geography", "Civics", "History", "English", "Odia", "ICT"],
+    "10": ["Physics", "Chemistry", "Biology", "Economic", "Geography", "Civics", "History", "English", "Odia", "ICT"]
+  };
+</script>
+
+<div id="content"></div>
+
+<footer>© All rights reserved till 2050 by Manish</footer>
+
+<script>
+  const content = document.getElementById("content");
+
+  for (const [classNum, subjects] of Object.entries(subjectsByClass)) {
+    const section = document.createElement("section");
+    section.innerHTML = `<h2>Class ${classNum}</h2>`;
+    const group = document.createElement("div");
+    group.className = "button-group";
+
+    subjects.forEach(subject => {
+      const btn = document.createElement("a");
+      btn.textContent = subject;
+      btn.href = "#";
+      btn.dataset.class = classNum;
+      btn.dataset.subject = subject;
+      group.appendChild(btn);
+    });
+
+    section.appendChild(group);
+    content.appendChild(section);
+  }
+
+  // 🔗 Fetch links from backend
+  async function updateLinks() {
+    const links = document.querySelectorAll("a[data-class]");
+    for (const link of links) {
+      const cls = link.dataset.class;
+      const subject = link.dataset.subject;
+      try {
+        const res = await fetch(`https://your-backend-url.onrender.com/api/links/${cls}`);
+        const data = await res.json();
+        const subjectData = data.find(item => item.subject.toLowerCase() === subject.toLowerCase());
+        if (subjectData && subjectData.link) {
+          link.href = subjectData.link;
+        } else {
+          link.href = "#";
+        }
+      } catch (err) {
+        console.error("Failed to fetch link:", err);
+      }
+    }
+  }
+
+  updateLinks();
+</script>
+
+</body>
+</html>

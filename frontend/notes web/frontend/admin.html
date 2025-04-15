@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel - Update Links</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 30px; background: #f4f4f4; }
+    label, select, input, button { display: block; margin: 10px 0; width: 100%; max-width: 400px; }
+    button { padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background: #388e3c; }
+  </style>
+</head>
+<body>
+  <h2>Admin Panel - Update Subject Link</h2>
+
+  <label for="class">Class</label>
+  <select id="class">
+    <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+  </select>
+
+  <label for="subject">Subject</label>
+  <select id="subject">
+    <option>Science</option><option>Social Science</option><option>English</option><option>Hindi</option>
+    <option>Odia</option><option>Physics</option><option>Chemistry</option><option>Biology</option>
+    <option>Economic</option><option>Geography</option><option>Civics</option><option>History</option>
+    <option>ICT</option>
+  </select>
+
+  <label for="link">New Link</label>
+  <input type="text" id="link" placeholder="https://example.com/your-subject-link" />
+
+  <button onclick="updateLink()">Update Link</button>
+  <p id="status"></p>
+
+  <script>
+    async function updateLink() {
+      const subjectClass = document.getElementById("class").value;
+      const subject = document.getElementById("subject").value;
+      const link = document.getElementById("link").value;
+
+      const res = await fetch("https://your-backend-url.onrender.com/api/links", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ class: subjectClass, subject, link })
+      });
+
+      const data = await res.json();
+      document.getElementById("status").innerText = data.message;
+    }
+  </script>
+</body>
+</html>
