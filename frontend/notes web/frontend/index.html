@@ -64,7 +64,7 @@
       const cls = link.dataset.class;
       const subject = link.dataset.subject;
       try {
-        const res = await fetch(`https://your-backend-url.onrender.com/api/links/${cls}`);
+        const res = await fetch(`https://main-website-1-e7bk.onrender.com/api/links/${cls}`);
         const data = await res.json();
         const subjectData = data.find(item => item.subject.toLowerCase() === subject.toLowerCase());
         if (subjectData && subjectData.link) {
