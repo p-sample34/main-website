@@ -414,7 +414,7 @@ function handleCredentialResponse(response) {
   const token = response.credential; // Google ID token
 
   // Send the token to your backend for verification
-  fetch('http://localhost:3000/verify-token', {
+  fetch('https://main-website-1-2d08.onrender.com/verify-token', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
