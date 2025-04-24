@@ -5,20 +5,60 @@
   <meta charset="UTF-8">
   <title>SCIENCE</title>
   <style>
-    body { font-family: Arial; text-align: center; background: #e0f7fa; padding: 30px; }
-    h1 { color: #00695c; }
-    a button {
-      background-color: #009688;
-      color: white;
-      padding: 12px 24px;
-      margin: 10px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    a button:hover { background-color: #00796b; }
+    /* style.css */
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background: #fff8e1;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  color: #5e35b1;
+  font-size: 2.5rem;
+  margin-top: 30px;
+}
+
+img {
+  margin-top: 20px;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  margin: 8px 0;
+}
+
+a button {
+  width: 100%;
+  max-width: 600px;
+  background: #7e57c2;
+  color: #fff;
+  padding: 15px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+a button:hover {
+  background: #5e35b1;
+  transform: scale(1.02);
+}
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  a button {
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
+
   </style>
 </head>
 <body>
