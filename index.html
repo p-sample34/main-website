@@ -409,23 +409,28 @@
       navList.classList.toggle("active");
     }
     
-  function handleCredentialResponse(response) {
-    const data = jwt_decode(response.credential);
-    alert("Welcome, " + data.name + "!");
-    // You can also access: data.email, data.picture, data.sub (user ID), etc.
-    console.log(data);
-
-    // Hide login modal after login
-    document.getElementById("loginModal").style.display = "none";
-
-    // Show user's profile or do your login process here
-  }
+ // In your frontend handleCredentialResponse function
 function handleCredentialResponse(response) {
-  const data = jwt_decode(response.credential);
-  alert("Welcome, " + data.name + "!");
-  console.log(data);
-  document.getElementById("loginModal").style.display = "none";
+  const token = response.credential; // Google ID token
+
+  // Send the token to your backend for verification
+  fetch('http://localhost:3000/verify-token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('User verified:', data.user);
+    // You can handle the user data here (e.g., store it in the session or local storage)
+  })
+  .catch(error => {
+    console.error('Error verifying token:', error);
+  });
 }
+
 
   </script>
 </body>
