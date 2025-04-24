@@ -384,6 +384,22 @@
       const navList = document.getElementById("navList");
       navList.classList.toggle("active");
     }
+    
+  function handleCredentialResponse(response) {
+    const data = jwt_decode(response.credential);
+    alert("Welcome, " + data.name + "!");
+    // You can also access: data.email, data.picture, data.sub (user ID), etc.
+    console.log(data);
+
+    // Hide login modal after login
+    document.getElementById("loginModal").style.display = "none";
+
+    // Show user's profile or do your login process here
+  }
+
+<!-- JWT decoder from Google -->
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+
   </script>
 </body>
 </html>
