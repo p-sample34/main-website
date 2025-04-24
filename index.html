@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://accounts.google.com/o/oauth2/auth" async defer></script>
+  <script src="https://oauth2.googleapis.com/token"></script>
+
   <title>SSVT - Smart Study</title>
   <style>
     * {
@@ -310,16 +313,33 @@
     </div>
   </section>
 
-  <div class="login-modal" id="loginModal">
-    <div class="login-box">
-      <h2 id="formTitle">Login</h2>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="submitForm()">Login</button>
-      <p id="loginMessage"></p>
-      <p class="toggle-form">
-        <span id="toggleText">Don't have an account?</span>
-        <a href="#" onclick="toggleFormMode()" id="toggleLink">Register here</a>
+ <div class="login-modal" id="loginModal">
+  <div class="login-box">
+    <h2>Login with Google</h2>
+
+    <!-- Google Sign-In Integration -->
+    <div id="g_id_onload"
+         data-client_id="405891110928-ir0ecto76qgr8qvp1j0a49u6b0klhq2n.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin"
+         data-type="standard"
+         data-shape="pill"
+         data-theme="outline"
+         data-text="sign_in_with"
+         data-size="large"
+         data-logo_alignment="left">
+    </div>
+    <!-- End Google Sign-In -->
+
+    <p id="loginMessage"></p>
+  </div>
+</div>
+
       </p>
     </div>
   </div>
@@ -396,9 +416,12 @@
 
     // Show user's profile or do your login process here
   }
-
-<!-- JWT decoder from Google -->
-<script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+function handleCredentialResponse(response) {
+  const data = jwt_decode(response.credential);
+  alert("Welcome, " + data.name + "!");
+  console.log(data);
+  document.getElementById("loginModal").style.display = "none";
+}
 
   </script>
 </body>
