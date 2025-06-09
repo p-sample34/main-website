@@ -1,0 +1,198 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2em;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+nav ul li {
+    margin: 0 1em;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Basic styling for navigation */
+nav {
+    padding: 1em;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: transparent; /* No background color */
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Center the items */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    position: relative;
+    margin: 0 1em;
+}
+
+/* Style for links */
+.nav-menu a {
+    text-decoration: none;
+    color: #333; /* Default color */
+    font-weight: bold;
+    padding: 0.5em 1em;
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect: Color and transform animation */
+.nav-menu a:hover {
+    color: #FF6347; /* Change color on hover */
+    transform: translateY(-5px); /* Slightly slide up */
+}
+
+/* Underline animation */
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: #FF6347; /* Color for underline */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+    transform-origin: bottom right;
+}
+
+.nav-menu a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+section {
+    padding: 2em;
+    text-align: center;
+}
+
+.course {
+    border: 1px solid #ddd;
+    padding: 1em;
+    margin: 1em 0;
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.course:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.contact-now {
+    display: none;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5em;
+    border-radius: 5px;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+}
+
+.course:hover .contact-now {
+    display: block;
+    opacity: 1;
+    bottom: -10px;
+}
+
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media query for mobile responsiveness */
+@media screen and (max-width: 768px) {
+    header h1 {
+        font-size: 1.5em; /* Adjust the size for smaller screens */
+    }
+
+    .nav-menu {
+        flex-direction: column; /* Stack menu items vertically */
+    }
+
+    .nav-menu li {
+        margin: 0.5em 0; /* Adjust margin for stacked items */
+    }
+
+    .nav-menu a {
+        padding: 0.5em 0;
+        font-size: 1.2em; /* Increase font size for better readability */
+    }
+
+    section {
+        padding: 1.5em; /* Reduce padding for smaller screens */
+    }
+
+    .course {
+        padding: 1.5em; /* Adjust padding for course items */
+        margin: 1em 0;
+    }
+
+    footer {
+        padding: 1em; /* Adjust footer padding */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header h1 {
+        font-size: 1.2em; /* Further adjust for very small screens */
+    }
+
+    .nav-menu a {
+        font-size: 1em; /* Smaller font size for very small screens */
+        padding: 0.5em; /* Adjust padding */
+    }
+
+    section {
+        padding: 1em; /* Further reduce padding */
+    }
+
+    .course {
+        padding: 1em; /* Reduce padding in course items */
+    }
+
+    footer {
+        padding: 0.5em; /* Reduce footer padding */
+    }
+}

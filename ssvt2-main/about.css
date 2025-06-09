@@ -1,0 +1,113 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+header {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #2c3e50;
+    color: white;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header p {
+    font-size: 1.2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #2c3e50;
+    color: white;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.gallery-item {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 10px;
+    flex: 1;
+    min-width: 250px;
+    max-width: 100%;
+}
+
+.gallery-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-radius: 10px;
+}
+
+/* Hover Effect */
+.gallery-item:hover .gallery-media {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* Image, Video, and YouTube Embed Popup */
+.gallery-item .gallery-media {
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup img, .popup video, .popup iframe {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    .gallery {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .gallery-item {
+        width: 100%;
+        height: auto;
+    }
+
+    .gallery-media {
+        height: auto
