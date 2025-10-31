@@ -2,264 +2,300 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smart Study</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      transition: all 0.3s ease;
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #f9f9f9, #e6f0ff);
+      color: #333;
     }
 
     header {
+      background-color: #003366;
+      color: white;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
-      background: linear-gradient(to right, #007bff, #00c6ff);
-      color: white;
-      position: relative;
-      z-index: 10;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 1.5em;
       font-weight: bold;
-      color: white;
-    }
-
-    .hamburger {
-      display: none;
-      cursor: pointer;
-      font-size: 28px;
-      z-index: 11;
-      color: white;
-      transition: transform 0.4s ease, color 0.3s ease;
-    }
-
-    /* Rotate hamburger when active */
-    .hamburger.active {
-      transform: rotate(90deg);
-      color: #ffe600;
     }
 
     nav ul {
-      display: flex;
-      gap: 20px;
       list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    nav ul li {
+      position: relative;
     }
 
     nav ul li a {
       text-decoration: none;
       color: white;
-      position: relative;
+      font-weight: 500;
+      transition: color 0.3s ease;
     }
 
     nav ul li a:hover {
-      color: #ffe600;
+      color: #ffcc00;
     }
 
+    /* Dropdown Styles */
     .dropdown {
-      position: relative;
-    }
-
-    .dropdown-menu {
-      display: none;
       position: absolute;
-      background-color: white;
       top: 100%;
       left: 0;
-      list-style: none;
-      padding: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background-color: white;
+      color: #333;
+      min-width: 160px;
       border-radius: 8px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      display: none;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
-    .dropdown:hover .dropdown-menu {
+    .dropdown.open {
       display: block;
-      animation: fadeIn 0.3s ease;
+      opacity: 1;
+      max-height: 500px;
     }
 
-    .dropdown-menu li {
-      padding: 5px 0;
-    }
-
-    .dropdown-menu li a {
-      color: black;
-      padding: 5px 10px;
-      border-radius: 5px;
+    .dropdown a {
       display: block;
+      padding: 10px;
+      text-decoration: none;
+      color: #222;
+      transition: background 0.2s ease;
     }
 
-    .dropdown-menu li a:hover {
-      background-color: #f1f1f1;
+    .dropdown a:hover {
+      background: #f0f0f0;
     }
 
-    .hero {
-      padding: 100px 20px;
-      text-align: center;
-      background: linear-gradient(to right, #e6f0ff, #d1ecff);
+    /* Arrow Animation */
+    nav ul li > a::after {
+      content: " ▼";
+      transition: transform 0.3s ease;
     }
 
-    .hero h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #003366;
+    nav ul li > a.active::after {
+      transform: rotate(180deg);
     }
 
-    .browse-btn {
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
       cursor: pointer;
-      animation: pulse 2s infinite;
+      width: 25px;
+      height: 20px;
+      justify-content: space-between;
     }
 
-    .browse-btn:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: white;
+      border-radius: 5px;
+      transition: all 0.3s ease;
     }
 
-    /* 🔹 Mobile View */
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translateY(8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translateY(-8px);
+    }
+
+    /* Responsive Styles */
     @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
       nav ul {
-        display: none;
-        flex-direction: column;
         position: absolute;
         top: 60px;
-        left: 0;
-        width: 100%;
-        background-color: #007bff;
-        padding: 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-        transform: translateY(-20px);
-        opacity: 0;
-        pointer-events: none;
+        right: 0;
+        background-color: #003366;
+        flex-direction: column;
+        width: 200px;
+        height: 0;
+        overflow: hidden;
+        border-radius: 0 0 10px 10px;
+        transition: all 0.3s ease;
       }
 
-      /* When menu opens — animated slide & fade */
       nav ul.active {
-        display: flex;
-        padding: 15px 0;
-        animation: slideDown 0.4s ease forwards;
+        height: 260px;
+        padding: 10px 0;
       }
 
       nav ul li {
-        padding: 10px 0;
         text-align: center;
-      }
-
-      nav ul li a {
-        color: white;
-        font-size: 18px;
-        display: block;
         width: 100%;
       }
 
-      .dropdown-menu {
-        position: static;
-        box-shadow: none;
-        padding-left: 20px;
+      nav ul li a {
+        display: block;
+        padding: 10px 0;
+        width: 100%;
+      }
+
+      .hamburger {
+        display: flex;
       }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(to right, #cce0ff, #e6f0ff);
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    .hero h1 {
+      font-size: 2.5em;
+      color: #003366;
     }
 
-    /* 🔹 Slide-down animation for mobile menu */
-    @keyframes slideDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
-      }
+    .hero p {
+      font-size: 1.1em;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #003366;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.9em;
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 
 <body>
   <header>
-    <div class="logo">📘 Simple-Study</div>
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="logo">Smart Study</div>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <nav>
       <ul id="navList">
-        <li><a href="https://p-sample34.github.io/main-website/">Home</a></li>
-        <li><a href="https://p-sample34.github.io/main-website/ssvt2-main/">About</a></li>
-        <li><a href="https://p-sample34.github.io/main-website/contact.html">Contact</a></li>
-        <li><a href="https://p-sample34.github.io/main-website/frontend/hub%20webNOTES/">NOTES</a></li>
-
-        <li class="dropdown">
-          <a href="#">EXAM-PAPER ▼</a>
-          <ul class="dropdown-menu">
-            <li><a href="https://user247a.github.io/class-vi-exam-paper/viewer.html">CLASS VI</a></li>
-            <li><a href="https://user247a.github.io/class-vii-exam-paper/viewer.html">CLASS VII</a></li>
-            <li><a href="https://user247a.github.io/class-viii-exam-paper/viewer.html">CLASS VIII</a></li>
-            <li><a href="https://user247a.github.io/class-ix-exam-paper/viewer.html">CLASS IX</a></li>
-            <li><a href="https://user247a.github.io/class-x-exam-paper/viewer.html">CLASS X</a></li>
-          </ul>
+        <li><a href="#">Home</a></li>
+        <li>
+          <a href="#">Notes</a>
+          <div class="dropdown">
+            <a href="#">Class 10</a>
+            <a href="#">Class 11</a>
+            <a href="#">Class 12</a>
+          </div>
         </li>
-
-        <li class="dropdown">
-          <a href="#">TEST ▼</a>
-          <ul class="dropdown-menu">
-            <li><a href="https://p-sample34.github.io/main-website/hompage-6th-main/CLASS%20VI/">Class 6</a></li>
-            <li><a href="https://p-sample34.github.io/main-website/hompage-6th-main/CLASS%20VII/">Class 7</a></li>
-            <li><a href="https://p-sample34.github.io/main-website/hompage-6th-main/CLASS%20VIII/">Class 8</a></li>
-            <li><a href="https://p-sample34.github.io/main-website/hompage-6th-main/CLASS%20IX/">Class 9</a></li>
-            <li><a href="https://p-sample34.github.io/main-website/hompage-6th-main/CLASS%20X/">Class 10</a></li>
-          </ul>
+        <li>
+          <a href="#">Previous year exam Paper</a>
+          <div class="dropdown">
+            <a href="#">class 6th</a>
+            <a href="#">class 7th</a>
+            <a href="#">class 8th </a>
+            <a href="#">class 9th </a>
+            <a href="#">class 10th </a>
+          </div>
         </li>
+        <li>
+          <a href="#">Test</a>
+          <div class="dropdown">
+            <a href="#">Chapter Test</a>
+            <a href="#">Full online Test</a>
+            
+          </div>
+        </li>
+        <li><a href="#" onclick="openGoogleMaps()">Location</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero">
-    <div class="content">
-      <h1>Learn Fast Grow Fast</h1>
-      <button class="browse-btn" onclick="openMap()">Get Direction</button>
-    </div>
+    <h1>Welcome to Smart Study</h1>
+    <p>Your one-stop destination for Notes, Test Papers, and Learning Materials</p>
   </section>
 
-  <script>
-    function toggleMenu() {
-      const navList = document.getElementById("navList");
-      const hamburger = document.querySelector(".hamburger");
-      navList.classList.toggle("active");
-      hamburger.classList.toggle("active");
-    }
+  <footer>
+    <p>© 2025 Smart Study | Designed for Students | <a href="#">Privacy Policy</a></p>
+  </footer>
 
-    function openMap() {
-      const latitude = 19.468190394468106;
-      const longitude = 82.80674060034208;
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
-      window.open(url, "_blank");
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navList = document.getElementById('navList');
+    const dropdownToggles = document.querySelectorAll('nav ul li > a');
+
+    // Hamburger menu toggle
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navList.classList.toggle('active');
+    });
+
+    // Dropdown open/close toggle
+    dropdownToggles.forEach(link => {
+      link.addEventListener('click', e => {
+        const parent = link.parentElement;
+        const dropdown = parent.querySelector('.dropdown');
+
+        if (dropdown) {
+          e.preventDefault();
+
+          // Close other dropdowns
+          document.querySelectorAll('.dropdown').forEach(d => {
+            if (d !== dropdown) d.classList.remove('open');
+          });
+          document.querySelectorAll('nav ul li > a').forEach(a => {
+            if (a !== link) a.classList.remove('active');
+          });
+
+          // Toggle this one
+          dropdown.classList.toggle('open');
+          link.classList.toggle('active');
+        }
+      });
+    });
+
+    // Open Google Maps
+    function openGoogleMaps() {
+      window.open("https://www.google.com/maps", "_blank");
     }
   </script>
 </body>
