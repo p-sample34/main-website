@@ -12,12 +12,12 @@
       box-sizing: border-box;
       transition: all 0.3s ease;
     }
-  
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f9f9f9;
     }
-  
+
     header {
       display: flex;
       justify-content: space-between;
@@ -28,41 +28,48 @@
       position: relative;
       z-index: 10;
     }
-  
+
     .logo {
       font-size: 24px;
       font-weight: bold;
       color: white;
     }
-  
+
     .hamburger {
       display: none;
       cursor: pointer;
       font-size: 28px;
       z-index: 11;
       color: white;
+      transition: transform 0.4s ease, color 0.3s ease;
     }
-  
+
+    /* Rotate hamburger when active */
+    .hamburger.active {
+      transform: rotate(90deg);
+      color: #ffe600;
+    }
+
     nav ul {
       display: flex;
       gap: 20px;
       list-style: none;
     }
-  
+
     nav ul li a {
       text-decoration: none;
       color: white;
       position: relative;
     }
-  
+
     nav ul li a:hover {
       color: #ffe600;
     }
-  
+
     .dropdown {
       position: relative;
     }
-  
+
     .dropdown-menu {
       display: none;
       position: absolute;
@@ -74,39 +81,39 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       border-radius: 8px;
     }
-  
+
     .dropdown:hover .dropdown-menu {
       display: block;
       animation: fadeIn 0.3s ease;
     }
-  
+
     .dropdown-menu li {
       padding: 5px 0;
     }
-  
+
     .dropdown-menu li a {
       color: black;
       padding: 5px 10px;
       border-radius: 5px;
       display: block;
     }
-  
+
     .dropdown-menu li a:hover {
       background-color: #f1f1f1;
     }
-  
+
     .hero {
       padding: 100px 20px;
       text-align: center;
       background: linear-gradient(to right, #e6f0ff, #d1ecff);
     }
-  
+
     .hero h1 {
       font-size: 32px;
       margin-bottom: 20px;
       color: #003366;
     }
-  
+
     .browse-btn {
       padding: 12px 24px;
       font-size: 16px;
@@ -117,17 +124,18 @@
       cursor: pointer;
       animation: pulse 2s infinite;
     }
-  
+
     .browse-btn:hover {
       background-color: #0056b3;
       transform: scale(1.05);
     }
-  
+
+    /* 🔹 Mobile View */
     @media (max-width: 768px) {
       .hamburger {
         display: block;
       }
-  
+
       nav ul {
         display: none;
         flex-direction: column;
@@ -136,35 +144,61 @@
         left: 0;
         width: 100%;
         background-color: #007bff;
-        padding: 20px 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        padding: 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
       }
-  
+
+      /* When menu opens — animated slide & fade */
       nav ul.active {
         display: flex;
+        padding: 15px 0;
+        animation: slideDown 0.4s ease forwards;
       }
-  
+
+      nav ul li {
+        padding: 10px 0;
+        text-align: center;
+      }
+
       nav ul li a {
         color: white;
-        padding: 10px 20px;
+        font-size: 18px;
+        display: block;
+        width: 100%;
       }
-  
+
       .dropdown-menu {
         position: static;
         box-shadow: none;
         padding-left: 20px;
       }
     }
-  
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
-  
+
     @keyframes pulse {
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
+    }
+
+    /* 🔹 Slide-down animation for mobile menu */
+    @keyframes slideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
     }
   </style>
 </head>
@@ -216,7 +250,9 @@
   <script>
     function toggleMenu() {
       const navList = document.getElementById("navList");
+      const hamburger = document.querySelector(".hamburger");
       navList.classList.toggle("active");
+      hamburger.classList.toggle("active");
     }
 
     function openMap() {
