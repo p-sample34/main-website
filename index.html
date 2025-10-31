@@ -63,7 +63,7 @@
       left: 0;
       background-color: white;
       color: #333;
-      min-width: 160px;
+      min-width: 180px;
       border-radius: 8px;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
       display: none;
@@ -71,6 +71,7 @@
       max-height: 0;
       overflow: hidden;
       transition: all 0.3s ease;
+      z-index: 999;
     }
 
     .dropdown.open {
@@ -140,7 +141,7 @@
         right: 0;
         background-color: #003366;
         flex-direction: column;
-        width: 200px;
+        width: 220px;
         height: 0;
         overflow: hidden;
         border-radius: 0 0 10px 10px;
@@ -148,8 +149,10 @@
       }
 
       nav ul.active {
-        height: 260px;
+        height: auto;
+        max-height: 80vh; /* allow full expansion */
         padding: 10px 0;
+        overflow-y: auto; /* scroll if too tall */
       }
 
       nav ul li {
@@ -218,33 +221,49 @@
     <nav>
       <ul id="navList">
         <li><a href="#">Home</a></li>
+
         <li>
           <a href="#">Notes</a>
           <div class="dropdown">
-            <a href="#">Class 10</a>
-            <a href="#">Class 11</a>
-            <a href="#">Class 12</a>
+            <a href="#">Class 6th</a>
+            <a href="#">Class 7th</a>
+            <a href="#">Class 8th</a>
+            <a href="#">Class 9th</a>
+            <a href="#">Class 10th</a>
           </div>
         </li>
+
         <li>
-          <a href="#">Previous year exam Paper</a>
+          <a href="#">Previous Year Exam Paper</a>
           <div class="dropdown">
-            <a href="#">class 6th</a>
-            <a href="#">class 7th</a>
-            <a href="#">class 8th </a>
-            <a href="#">class 9th </a>
-            <a href="#">class 10th </a>
+            <a href="#">Class 6th</a>
+            <a href="#">Class 7th</a>
+            <a href="#">Class 8th</a>
+            <a href="#">Class 9th</a>
+            <a href="#">Class 10th</a>
           </div>
         </li>
+
         <li>
           <a href="#">Test</a>
           <div class="dropdown">
             <a href="#">Chapter Test</a>
-            <a href="#">Full online Test</a>
-            
+            <a href="#">Full Online Test</a>
+            <a href="#">Weekly Challenge</a>
+            <a href="#">Mock Board Paper</a>
           </div>
         </li>
-        <li><a href="#" onclick="openGoogleMaps()">Location</a></li>
+
+        <li>
+          <a href="#">Student Data</a>
+          <div class="dropdown">
+            <a href="#">Class 6</a>
+            <a href="#">Class 7</a>
+            <a href="#">Class 8</a>
+            <a href="#">Class 9</a>
+            <a href="#">Class 10</a>
+          </div>
+        </li>
       </ul>
     </nav>
   </header>
@@ -292,11 +311,6 @@
         }
       });
     });
-
-    // Open Google Maps
-    function openGoogleMaps() {
-      window.open("https://www.google.com/maps", "_blank");
-    }
   </script>
 </body>
 </html>
