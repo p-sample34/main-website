@@ -4,10 +4,8 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <script src="https://accounts.google.com/o/oauth2/auth" async defer></script>
-  <script src="https://oauth2.googleapis.com/token"></script>
+  <title>Smart Study-Teacher panel</title>
 
-  <title> Smart Study</title>
   <style>
     * {
       margin: 0;
@@ -15,12 +13,12 @@
       box-sizing: border-box;
       transition: all 0.3s ease;
     }
-  
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f9f9f9;
     }
-  
+
     header {
       display: flex;
       justify-content: space-between;
@@ -31,401 +29,159 @@
       position: relative;
       z-index: 10;
     }
-  
+
     .logo {
       font-size: 24px;
       font-weight: bold;
       color: white;
     }
-  
+
     .hamburger {
       display: none;
       cursor: pointer;
-      font-size: 28px;
+      font-size: 30px;
       z-index: 11;
       color: white;
     }
-  
+
     nav ul {
       display: flex;
       gap: 20px;
       list-style: none;
     }
-  
+
     nav ul li a {
       text-decoration: none;
       color: white;
-      position: relative;
     }
-  
+
     nav ul li a:hover {
       color: #ffe600;
     }
-  
-    .login-btn {
-      cursor: pointer;
-      padding: 8px 16px;
-      background-color: white;
-      color: #007bff;
-      border-radius: 20px;
-      font-weight: bold;
-    }
-  
-    .login-btn:hover {
-      background-color: #ffe600;
-      color: black;
-    }
-  
-    .login-mobile {
-      display: none;
-    }
-  
-    .dropdown {
-      position: relative;
-    }
-  
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      background-color: white;
-      top: 100%;
-      left: 0;
-      list-style: none;
-      padding: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      border-radius: 8px;
-    }
-  
-    .dropdown:hover .dropdown-menu {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-  
-    .dropdown-menu li {
-      padding: 5px 0;
-    }
-  
-    .dropdown-menu li a {
-      color: black;
-      padding: 5px 10px;
-      border-radius: 5px;
-      display: block;
-    }
-  
-    .dropdown-menu li a:hover {
-      background-color: #f1f1f1;
-    }
-  
-    .profile-pic {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-    }
-  
-    .login-modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      animation: fadeIn 0.4s ease;
-    }
-  
-    .login-modal .login-box {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      width: 300px;
-      text-align: center;
-      animation: slideDown 0.4s ease;
-    }
-  
-    .login-box input {
-      width: 90%;
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-  
-    .login-box button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-  
-    .login-box button:hover {
-      background-color: #0056b3;
-    }
-  
-    .hero {
-      padding: 100px 20px;
-      text-align: center;
-      background: linear-gradient(to right, #e6f0ff, #d1ecff);
-    }
-  
-    .hero h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
-      color: #003366;
-    }
-  
-    .browse-btn {
-      padding: 12px 24px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      animation: pulse 2s infinite;
-    }
-  
-    .browse-btn:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
-    }
-  
+
+    /* Smooth Slide Menu */
     @media (max-width: 768px) {
       .hamburger {
         display: block;
       }
-  
+
       nav ul {
-        display: none;
         flex-direction: column;
-        position: absolute;
+        position: fixed;
         top: 60px;
-        left: 0;
-        width: 100%;
+        left: -100%;
+        width: 60%;
+        height: 100vh;
         background-color: #007bff;
-        padding: 20px 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        padding-top: 30px;
+        transition: left 0.4s ease-in-out;
       }
-  
+
       nav ul.active {
-        display: flex;
+        left: 0;
       }
-  
+
+      nav ul li {
+        padding: 15px 20px;
+      }
+
       nav ul li a {
         color: white;
-        padding: 10px 20px;
-      }
-  
-      .login-btn {
-        display: none;
-      }
-  
-      .login-mobile {
-        display: block;
-        text-align: center;
-        margin-top: 10px;
-        font-weight: bold;
-        cursor: pointer;
-        padding: 10px;
-        color: white;
-      }
-  
-      .dropdown-menu {
-        position: static;
-        box-shadow: none;
-        padding-left: 20px;
+        font-size: 18px;
       }
     }
-  
-    @keyframes slideDown {
-      from {
-        transform: translateY(-30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 80px 20px;
+      text-align: center;
+      background: linear-gradient(to right, #e6f0ff, #d1ecff);
     }
-  
+
+    .hero h1 {
+      font-size: 34px;
+      margin-bottom: 25px;
+      color: #003366;
+    }
+
+    .hero-img-container {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .hero-card {
+      background: #fff;
+      width: 280px;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .hero-card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .hero-card p {
+      color: #003366;
+      font-weight: 600;
+    }
+
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-  
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
-  
 </head>
+
 <body>
   <header>
-    <div class="logo">📘 simple </div>
+    <div class="logo">📘 Smart Study</div>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
     <nav>
       <ul id="navList">
-        <li><a href="https://p-sample34.github.io/main-website/">Home</a></li>
-        <li><a href="https://p-sample34.github.io/main-website/ssvt2-main/">About</a></li>
-        <li><a href="https://p-sample34.github.io/main-website/contact.html">Contact</a></li>
-        <li><a href="https://p-sample34.github.io/main-website/frontend/upload.html">NOTES</a></li>
+        <li><a href="#">Home Student panel</a></li>
+        <li><a href="#"> Upload-About</a></li>
+        <li><a href="#">Test</a></li>
+        <li><a href="#">Notes</a></li>
+        <li><a href="#">Student Contactacts</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <li class="dropdown">
-          <a href="#">EXAM-PAPER ▼</a>
-          <ul class="dropdown-menu">
-            <li><a href="under constrtion">CLASS VI</a></li>
-            <li><a href="">CLASS VII</a></li>
-            <li><a href="">CLASS VIII</a></li>
-            <li><a href="">CLASS IX</a></li>
-            <li><a href="">CLASS X</a></li>
-          </ul>
-        </li>
+  <!-- Hero Section Edited -->
+  <section class="hero">
+    <h1>Welcome to Smart Study</h1>
+    <div class="hero-img-container">
+      
+      <div class="hero-card">
+        <img src="https://i.postimg.cc/8c7xH8qk/study1.jpg" alt="Study Material">
+        <p>Access Quality Notes</p>
+      </div>
 
-        <li class="dropdown">
-          <a href="#">TEST ▼</a>
-          <ul class="dropdown-menu">
-            <li><a href="https://p-sample34.github.io/main-website/hompage-6th-main/class%20vi%20teacher/">Class 6</a></li>
-            <li><a href="">Class 7</a></li>
-            <li><a href="">Class 8</a></li>
-            <li><a href="">Class 9</a></li>
-            <li><a href="">Class 10</a></li>
-          </ul>
-        </li>
-<!-- Navigation Section -->
+      <div class="hero-card">
+        <img src="https://i.postimg.cc/6Q8J6RWk/exam.jpg" alt="Exam Prep">
+        <p>Prepare for Exams</p>
+      </div>
 
+      <div class="hero-card">
+        <img src="https://i.postimg.cc/Hkv8dVCf/teach.jpg" alt="Teachers">
+        <p>Support for Teachers</p>
+      </div>
 
-</header>
-
-<!-- Hero Section -->
-<section class="hero">
-  <div class="content">
-    <h1>Learn Your more</h1>
-    <button class="browse-btn" onclick="openMap()">Get Direction</button>
-  </div>
-</section>
-
-<!-- Login Modal Section -->
-<div class="login-modal" id="loginModal">
-  <div class="login-box">
-    <h2>Login with Google</h2>
-
-    <!-- Google Sign-In Integration -->
-    <div id="g_id_onload"
-         data-client_id="405891110928-ir0ecto76qgr8qvp1j0a49u6b0klhq2n.apps.googleusercontent.com"
-         data-context="signin"
-         data-ux_mode="popup"
-         data-callback="handleCredentialResponse"
-         data-auto_prompt="false">
     </div>
+  </section>
 
-    <div class="g_id_signin"
-         data-type="standard"
-         data-shape="pill"
-         data-theme="outline"
-         data-text="sign_in_with"
-         data-size="large"
-         data-logo_alignment="left">
-    </div>
-    <!-- End Google Sign-In -->
+<script>
+  function toggleMenu() {
+    document.getElementById("navList").classList.toggle("active");
+  }
+</script>
 
-    <p id="loginMessage"></p>
-  </div>
-</div>
-
-
-
-  <script>
-    let isLoginMode = true;
-
-    function toggleLogin() {
-      const modal = document.getElementById("loginModal");
-      modal.style.display = modal.style.display === "flex" ? "none" : "flex";
-      modal.style.justifyContent = "center";
-      modal.style.alignItems = "center";
-    }
-
-    function toggleFormMode() {
-      isLoginMode = !isLoginMode;
-      document.getElementById("formTitle").textContent = isLoginMode ? "Login" : "Register";
-      document.querySelector(".login-box button").textContent = isLoginMode ? "Login" : "Register";
-      document.getElementById("toggleText").textContent = isLoginMode ? "Don't have an account?" : "Already have an account?";
-      document.getElementById("toggleLink").textContent = isLoginMode ? "Register here" : "Login here";
-      document.getElementById("loginMessage").textContent = "";
-    }
-
-    async function submitForm() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const message = document.getElementById("loginMessage");
-      const endpoint = isLoginMode ? "/login" : "/register";
-
-      try {
-        const res = await fetch(`https://main-website-uftu.onrender.com${endpoint}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        });
-
-        const data = await res.json();
-        message.textContent = data.message;
-        message.style.color = res.ok ? "green" : "red";
-
-        if (isLoginMode && res.ok) {
-          alert("Welcome " + username);
-          toggleLogin();
-          const loginBtn = document.querySelector(".login-btn");
-          loginBtn.innerHTML = `<img src="profile.png" alt="Profile" class="profile-pic">`;
-          loginBtn.style.background = "transparent";
-        }
-      } catch (err) {
-        message.textContent = "Something went wrong!";
-        message.style.color = "red";
-      }
-    }
-
-    function openMap() {
-      const latitude = 19.468190394468106;
-      const longitude = 82.80674060034208;
-      const url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`;
-      window.open(url, "_blank");
-    }
-
-    function toggleMenu() {
-      const navList = document.getElementById("navList");
-      navList.classList.toggle("active");
-    }
-    
- // In your frontend handleCredentialResponse function
-function handleCredentialResponse(response) {
-  const token = response.credential; // Google ID token
-
-  // Send the token to your backend for verification
-  fetch('https://main-website-1-2d08.onrender.com/verify-token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ token }),
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log('User verified:', data.user);
-    // You can handle the user data here (e.g., store it in the session or local storage)
-  })
-  .catch(error => {
-    console.error('Error verifying token:', error);
-  });
-}
-
-
-  </script>
 </body>
 </html>
