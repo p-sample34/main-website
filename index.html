@@ -150,9 +150,9 @@
 
       nav ul.active {
         height: auto;
-        max-height: 80vh; /* allow full expansion */
+        max-height: 80vh;
         padding: 10px 0;
-        overflow-y: auto; /* scroll if too tall */
+        overflow-y: auto;
       }
 
       nav ul li {
@@ -189,6 +189,38 @@
       margin-top: 10px;
     }
 
+    /* === Student Photos Section === */
+    .photos-section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .photos-section h2 {
+      font-size: 2em;
+      color: #003366;
+      margin-bottom: 20px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .photo-grid img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
     /* Footer */
     footer {
       background-color: #003366;
@@ -223,9 +255,7 @@
         <li><a href="#">Home</a></li>
         <li><a href="https://p-sample34.github.io/main-website/ssvt2-main/">about</a></li>
         <li><a href="https://p-sample34.github.io/main-website/contact.html">contact</a></li>
-       <li><a href="https://p-sample34.github.io/main-website/frontend/hub%20webNOTES/">Notes</a></li>
-
-      
+        <li><a href="https://p-sample34.github.io/main-website/frontend/hub%20webNOTES/">Notes</a></li>
 
         <li>
           <a href="#">Test</a>
@@ -256,6 +286,17 @@
     <p>Your one-stop destination for Notes, Test Papers, and Learning Materials</p>
   </section>
 
+  <!-- === Added Student Photos Section === -->
+  <section class="photos-section">
+    <h2>Our Smart Students</h2>
+    <div class="photo-grid">
+      <img src="https://images.unsplash.com/photo-1596495577886-d920f1fb7238" alt="Student studying" />
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf" alt="Group of students" />
+      <img src="https://images.unsplash.com/photo-1603201667141-30f80bf40a2c" alt="Student learning online" />
+      <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b" alt="Happy student" />
+    </div>
+  </section>
+
   <footer>
     <p>© 2025 Smart Study | Designed for Students | <a href="#">Privacy Policy</a></p>
   </footer>
@@ -279,8 +320,6 @@
 
         if (dropdown) {
           e.preventDefault();
-
-          // Close other dropdowns
           document.querySelectorAll('.dropdown').forEach(d => {
             if (d !== dropdown) d.classList.remove('open');
           });
@@ -288,7 +327,6 @@
             if (a !== link) a.classList.remove('active');
           });
 
-          // Toggle this one
           dropdown.classList.toggle('open');
           link.classList.toggle('active');
         }
@@ -297,8 +335,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
