@@ -19,6 +19,58 @@
       background-color: #f9f9f9;
     }
 
+    /* LOGIN SCREEN */
+    #loginScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 123, 255, 0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(4px);
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 300px;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      color: #003366;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background: #005fcc;
+    }
+
     header {
       display: flex;
       justify-content: space-between;
@@ -30,41 +82,15 @@
       z-index: 10;
     }
 
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: white;
-    }
+    .logo { font-size: 24px; font-weight: bold; color: white; }
+    .hamburger { display: none; cursor: pointer; font-size: 30px; z-index: 11; color: white; }
 
-    .hamburger {
-      display: none;
-      cursor: pointer;
-      font-size: 30px;
-      z-index: 11;
-      color: white;
-    }
+    nav ul { display: flex; gap: 20px; list-style: none; }
+    nav ul li a { text-decoration: none; color: white; }
+    nav ul li a:hover { color: #ffe600; }
 
-    nav ul {
-      display: flex;
-      gap: 20px;
-      list-style: none;
-    }
-
-    nav ul li a {
-      text-decoration: none;
-      color: white;
-    }
-
-    nav ul li a:hover {
-      color: #ffe600;
-    }
-
-    /* Smooth Slide Menu */
     @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
+      .hamburger { display: block; }
       nav ul {
         flex-direction: column;
         position: fixed;
@@ -76,33 +102,18 @@
         padding-top: 30px;
         transition: left 0.4s ease-in-out;
       }
-
-      nav ul.active {
-        left: 0;
-      }
-
-      nav ul li {
-        padding: 15px 20px;
-      }
-
-      nav ul li a {
-        color: white;
-        font-size: 18px;
-      }
+      nav ul.active { left: 0; }
+      nav ul li { padding: 15px 20px; }
+      nav ul li a { font-size: 18px; }
     }
 
-    /* HERO SECTION */
     .hero {
       padding: 80px 20px;
       text-align: center;
       background: linear-gradient(to right, #e6f0ff, #d1ecff);
     }
 
-    .hero h1 {
-      font-size: 34px;
-      margin-bottom: 25px;
-      color: #003366;
-    }
+    .hero h1 { font-size: 34px; margin-bottom: 25px; color: #003366; }
 
     .hero-img-container {
       display: flex;
@@ -118,7 +129,6 @@
       border-radius: 15px;
       box-shadow: 0 3px 8px rgba(0,0,0,0.1);
       text-align: center;
-      animation: fadeIn 1s ease forwards;
     }
 
     .hero-card img {
@@ -127,19 +137,21 @@
       margin-bottom: 10px;
     }
 
-    .hero-card p {
-      color: #003366;
-      font-weight: 600;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .hero-card p { color: #003366; font-weight: 600; }
   </style>
 </head>
 
 <body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen">
+    <div class="login-box">
+      <h2>Teacher Login</h2>
+      <input type="password" id="passwordInput" placeholder="Enter Password">
+      <button onclick="checkPass()">Login</button>
+    </div>
+  </div>
+
   <header>
     <div class="logo">📘 Smart Study</div>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
@@ -154,32 +166,38 @@
     </nav>
   </header>
 
-  <!-- Hero Section Edited -->
   <section class="hero">
     <h1>Welcome to Smart Study</h1>
     <div class="hero-img-container">
-      
       <div class="hero-card">
-        <img src="https://i.postimg.cc/8c7xH8qk/study1.jpg" alt="Study Material">
+        <img src="https://i.postimg.cc/8c7xH8qk/study1.jpg">
         <p>Access Quality Notes</p>
       </div>
 
       <div class="hero-card">
-        <img src="https://i.postimg.cc/6Q8J6RWk/exam.jpg" alt="Exam Prep">
+        <img src="https://i.postimg.cc/6Q8J6RWk/exam.jpg">
         <p>Prepare for Exams</p>
       </div>
 
       <div class="hero-card">
-        <img src="https://i.postimg.cc/Hkv8dVCf/teach.jpg" alt="Teachers">
+        <img src="https://i.postimg.cc/Hkv8dVCf/teach.jpg">
         <p>Support for Teachers</p>
       </div>
-
     </div>
   </section>
 
 <script>
   function toggleMenu() {
     document.getElementById("navList").classList.toggle("active");
+  }
+
+  function checkPass() {
+    const pass = document.getElementById("passwordInput").value;
+    if(pass === "ssvt-tutor-2018"){
+      document.getElementById("loginScreen").style.display = "none";
+    } else {
+      alert("Wrong Password ❌");
+    }
   }
 </script>
 
